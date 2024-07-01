@@ -1,51 +1,64 @@
-# Bill Management app a Node.js application
+# SmartBill Manager
 
-A REST api backend service to upload bill and file information. A file is linked to a bill which includes an image.
-Bills can only be uploaded by users which are authenticated using basic auth.
+SmartBill Manager is a Node.js application that serves as a robust backend service for managing bill and file information. It allows authenticated users to upload and manage bills, each linked to an image file. Authentication is handled via basic auth to ensure secure access.
 
 ## Features
 
-1. Creation and authentication of users using basic auth
-2. Creating, modifying and deleting bill information.
-3. Attaching a file to a bill. A file is a multipart/form-data which includes a file attachment.
-4. The file is saved to an S3 bucket (address denoted by environment variable `S3_BUCKET_ADDRESS`) if the application is deployed on AWS. On local, it will saved in `uploads/` in the project directory.
+- **User Authentication**: Secure creation and authentication of users using basic auth.
+- **Bill Management**: Create, update, and delete bill information.
+- **File Attachment**: Attach image files to bills. Files are uploaded as `multipart/form-data` and saved to an S3 bucket when deployed on AWS, or to the `uploads/` directory when running locally.
 
 ## API Endpoints
 
-User:
-1. GET: `v1/user/self` - Listing the current user information
-2. PUT: `v1/user/self` - Modifying the current user information
-3. POST: `v1/user` - Creating a new user
+### User
 
-Bill:
-1. GET: `v1/bill` - Listing all bills createed by the current user
-2. GET: `v1/bills/due/:days` - Listing all bills that are due in the next `:days` days
-3. POST: `v1/bill` - Creating a new bill
-4. GET: `v1/bill/:billId` - Listing a particular bill with id `:billId`
-5. PUT: `v1/bill/:billId` - Updating a particular bill with id `:billId`
-6. DELETE: `v1/bill/:billId` - Deleting a particular bill with id `:billId`
+- **GET** `/v1/user/self`: Retrieve information about the current user.
+- **PUT** `/v1/user/self`: Update information for the current user.
+- **POST** `/v1/user`: Create a new user.
 
-File:
-1. POST: `v1/bill/:billId/file` - Attaching a file to a particular bill with id `:billId`
-2. GET: `v1/bill/:billId/file/:fileId` - Listing a particular file with billid `:billId` and fileid `:fileId`
-3. DELETE: `v1/bill/:billId/file/:fileId` - Deleting a particular file with billid `:billId` and fileid `:fileId`
+### Bill
 
-# Getting started
+- **GET** `/v1/bill`: List all bills created by the current user.
+- **GET** `/v1/bills/due/:days`: List all bills due in the next `:days` days.
+- **POST** `/v1/bill`: Create a new bill.
+- **GET** `/v1/bill/:billId`: Retrieve a specific bill by its ID.
+- **PUT** `/v1/bill/:billId`: Update a specific bill by its ID.
+- **DELETE** `/v1/bill/:billId`: Delete a specific bill by its ID.
 
-Follow below steps in order to start the application.
+### File
 
-## Install npm packages
+- **POST** `/v1/bill/:billId/file`: Attach a file to a specific bill by its ID.
+- **GET** `/v1/bill/:billId/file/:fileId`: Retrieve a specific file linked to a bill.
+- **DELETE** `/v1/bill/:billId/file/:fileId`: Delete a specific file linked to a bill.
 
-`npm i` or `npm install`
+## Getting Started
 
-## Run application server
+To start the application, follow these steps:
 
-`npm start` or `npm run start`
+1.  **Install npm packages**
 
-## Test the application
+    bash
 
-`npm test`
+    Copy code
 
-Port number will be based on the environment variable : EXPRESS_PORT or 3000 by default
+    `npm install`
+
+2.  **Run the application server**
+
+    bash
+
+    Copy code
+
+    `npm start`
+
+3.  **Test the application**
+
+    bash
+
+    Copy code
+
+    `npm test`
+
+The application will run on the port specified by the environment variable `EXPRESS_PORT` or default to port 3000.
 
 You can access the app at [http://localhost:3000/](http://localhost:3000/).
